@@ -1,6 +1,6 @@
 # Tutorial
 
-## How to setup Phoenix with React, Redux and Sass
+## How to setup Phoenix with React, Redux and Sass 3
 
 #### The Stack
 
@@ -110,7 +110,7 @@ function web(dest) { return root('web/static/' + dest) }
 var config = module.exports = {
   entry: {
     application: [
-      web('css/application.sass'),
+      web('css/application.scss'),
       web('js/application.js')
     ],
   },
@@ -121,7 +121,7 @@ var config = module.exports = {
   },
 
   resolve: {
-    extension: ['', '.js', '.sass'],
+    extension: ['', '.js', '.scss'],
     modulesDirectories: ['node_modules']
   },
 
@@ -138,8 +138,8 @@ var config = module.exports = {
         }
       },
       {
-        test: /\.sass$/,
-        loader: ExtractTextPlugin.extract('style', 'css!sass?indentedSyntax&includePaths[]=' + __dirname +  '/node_modules')
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract('style', 'css!sass?includePaths[]=' + __dirname +  '/node_modules')
       }
     ]
   },
@@ -172,7 +172,7 @@ config :new_project, NewProject.Endpoint,
 mix deps.get
 mix ecto.create
 ```
-* Create blank `web\static\js\application.js` and `web\static\css\application.saas` files.
+* Create blank `web\static\js\application.js` and `web\static\css\application.scss` files.
 * Move the `private/static/js/phoenix.js` file to the `web/static/js` folder.
 * Open the `web/templates/layout/app.html.eex` and add a link to the `application.css` stylesheet.
 ```
