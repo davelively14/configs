@@ -1,6 +1,6 @@
 # Tutorial
 
-## How to setup Phoenix with React / Redux
+## How to setup Phoenix with React / Redux and Sass
 
 #### The Stack
 
@@ -64,6 +64,11 @@ $ npm init
   "babel-preset-es2015": "^6.13.2",
   "babel-preset-react": "^6.11.1",
   "babel-loader": "^6.2.4",
+  "css-loader": "^0.23.1",
+  "extract-text-webpack-plugin": "^1.0.1",
+  "node-sass": "^3.8.0",
+  "sass-loader": "^4.0.0",
+  "style-loader": "^0.13.1",
   "webpack": "^1.13.1"
 },
 "dependencies": {
@@ -81,7 +86,7 @@ npm install
 ```
 * Option B: Install most recent updates through the terminal. In the `new_project` directory:
 ```
-$ npm install --save-dev babel-core babel-preset-es2015 babel-preset-react babel-loader webpack
+$ npm install --save-dev babel-core babel-preset-es2015 babel-preset-react babel-loader extract-text-webpack-plugin node-sass style-loader css-loader sass-loader webpack
   ...
   ...
 $ npm install --save react react-router-redux react-router redux react-redux react-dom
@@ -99,6 +104,7 @@ $ npm install --save react react-router-redux react-router redux react-redux rea
 'use strict'
 
 var path = require('path')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var webpack = require('webpack')
 
 function root(dest) { return path.resolve(__dirname, dest) }
@@ -107,6 +113,7 @@ function web(dest) { return root('web/static/' + dest) }
 var config = module.exports = {
   entry: {
     application: [
+      web('css/application.sass'),
       web('js/application.js')
     ],
   },
@@ -117,7 +124,7 @@ var config = module.exports = {
   },
 
   resolve: {
-    extension: ['', '.js'],
+    extension: ['', '.js', '.sass'],
     modulesDirectories: ['node_modules']
   },
 
@@ -132,11 +139,17 @@ var config = module.exports = {
           cacheDirectory: true,
           presets: ['react', 'es2015']
         }
+      },
+      {
+        test: /\.sass$/,
+        loader: ExtractTextPlugin.extract('style', 'css!sass?indentedSyntax&includePaths[]=' + __dirname +  '/node_modules')
       }
     ]
   },
 
-  plugins: []
+  plugins: [
+    new ExtractTextPlugin('css/application.css')
+  ]
 }
 
 if (process.env.NODE_ENV === 'production') {
