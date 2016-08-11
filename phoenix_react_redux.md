@@ -12,7 +12,6 @@
 #### Front End Packaging
 
   * Webpack
-  * Sass
   * React
   * React Router
   * Redux
