@@ -163,6 +163,10 @@ mix ecto.create
 ```
 * Create a blank `web\static\js\application.js` file.
 * Move the `private/static/js/phoenix.js` file to the `web/static/js` folder.
+* In the `web/templates/layout/app.html.eex` file, change the static path pointing to the javascript from `app.js` to `application.js` as seen here:
+```
+<script src="<%= static_path(@conn, "/js/application.js") %>"></script>
+```
 * Run the server and everything should be up and running:
 ```
 $ mix phoenix.server

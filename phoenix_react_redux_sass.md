@@ -172,8 +172,16 @@ config :new_project, NewProject.Endpoint,
 mix deps.get
 mix ecto.create
 ```
-* Create a blank `web\static\js\application.js` file.
+* Create blank `web\static\js\application.js` and `web\static\css\application.saas` files.
 * Move the `private/static/js/phoenix.js` file to the `web/static/js` folder.
+* Open the `web/templates/layout/app.html.eex` and add a link to the `application.css` stylesheet.
+```
+<link rel="stylesheet" href="<%= static_path(@conn, "/css/application.css") %>">
+```
+* In the same `web/templates/layout/app.html.eex` file, change the static path pointing to the javascript from `app.js` to `application.js` as seen here:
+```
+<script src="<%= static_path(@conn, "/js/application.js") %>"></script>
+```
 * Run the server and everything should be up and running:
 ```
 $ mix phoenix.server
