@@ -1,6 +1,6 @@
 # Tutorial
 
-## How to setup Phoenix with React / Redux and Sass
+## How to setup Phoenix with React, Redux and Sass
 
 #### The Stack
 
