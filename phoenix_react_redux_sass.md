@@ -185,4 +185,16 @@ mix ecto.create
 * Run the server and everything should be up and running:
 ```
 $ mix phoenix.server
+...
+[info] Running NewProject.Endpoint with Cowboy using http://localhost:4000
+Hash: 01d3f6e25f54222b539d
+Version: webpack 1.13.1
+Time: 634ms
+              Asset      Size  Chunks             Chunk Names
+  js/application.js   1.67 kB       0  [emitted]  application
+css/application.css  31 bytes       0  [emitted]  application
+   [0] multi application 40 bytes {0} [built]
+    + 5 hidden modules
+Child extract-text-webpack-plugin:
+        + 2 hidden modules
 ```
