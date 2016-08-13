@@ -33,7 +33,7 @@ config :new_project, NewProject.Repo,
   hostname: "localhost",
   pool_size: 10
 ```
-  test.exs:
+  - test.exs:
 ```
 config :new_project, NewProject.Repo,
   adapter: Ecto.Adapters.Postgres,
@@ -42,51 +42,51 @@ config :new_project, NewProject.Repo,
   pool: Ecto.Adapters.SQL.Sandbox
 ```
 * Initialize the database:
-  ```
-  $ mix ecto.create
-  ```
+```
+$ mix ecto.create
+```
 * Navigate to the newly created directory.  Setup the git. Create the repo, `new_project` in this example, on the git account.
-  ```
-  $ git init
-  $ git add .
-  $ git commit -m "Initial commit"
-  $ git remote add origin https://github.com/davelively14/new_project.git
-  $ git push -u origin master
-  ```
+```
+$ git init
+$ git add .
+$ git commit -m "Initial commit"
+$ git remote add origin https://github.com/davelively14/new_project.git
+$ git push -u origin master
+```
 * In the newly created directory `new_project`, create a new `package.json` file:
-  ```
-  $ npm init
-  ```
+```
+$ npm init
+```
 * Install dependencies
   **Option A:** Open `package.json` and add the base dependencies. Doing it this way is easier, but some of the dependencies may not be up to date. This will work with the configuration.
-    ```
-    "devDependencies": {
-      "babel-core": "^6.13.2",
-      "babel-loader": "^6.2.4",
-      "babel-preset-es2015": "^6.13.2",
-      "babel-preset-react": "^6.11.1",
-      "css-loader": "^0.23.1",
-      "extract-text-webpack-plugin": "^1.0.1",
-      "node-sass": "^3.8.0",
-      "sass-loader": "^4.0.0",
-      "style-loader": "^0.13.1",
-      "webpack": "^1.13.1"
-    },
-    "dependencies": {
-      "react": "^15.3.0",
-      "react-dom": "^15.3.0",
-      "react-redux": "^4.4.5",
-      "react-router": "^2.6.1",
-      "react-router-redux": "^4.0.5",
-      "redux": "^3.5.2",
-      "phoenix": "file:deps/phoenix",
-      "phoenix_html": "file:deps/phoenix_html"
-    }
-    ```
+```
+"devDependencies": {
+  "babel-core": "^6.13.2",
+  "babel-loader": "^6.2.4",
+  "babel-preset-es2015": "^6.13.2",
+  "babel-preset-react": "^6.11.1",
+  "css-loader": "^0.23.1",
+  "extract-text-webpack-plugin": "^1.0.1",
+  "node-sass": "^3.8.0",
+  "sass-loader": "^4.0.0",
+  "style-loader": "^0.13.1",
+  "webpack": "^1.13.1"
+},
+"dependencies": {
+  "react": "^15.3.0",
+  "react-dom": "^15.3.0",
+  "react-redux": "^4.4.5",
+  "react-router": "^2.6.1",
+  "react-router-redux": "^4.0.5",
+  "redux": "^3.5.2",
+  "phoenix": "file:deps/phoenix",
+  "phoenix_html": "file:deps/phoenix_html"
+}
+```
   Then, from the command line, type:
-    ```
-    npm install
-    ```
+  ```
+  npm install
+  ```
   **Option B:** Install most recent updates through the terminal. In the `new_project` directory:
     ```
     $ npm install --save-dev babel-core babel-preset-es2015 babel-preset-react babel-loader extract-text-webpack-plugin node-sass style-loader css-loader sass-loader webpack
