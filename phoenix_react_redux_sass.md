@@ -12,7 +12,7 @@
 #### Front End Packaging
 
   * Webpack
-  * Sass
+  * Sass (organized with CSS Burrito)
   * React
   * React Router
   * Redux
@@ -57,44 +57,58 @@ $ git push -u origin master
 ```
 $ npm init
 ```
-* Option A: Open `package.json` and add the base dependencies.
+* Install dependencies
+  * Option A: Open `package.json` and add the base dependencies.
+  ```
+  "devDependencies": {
+    "babel-core": "^6.13.2",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-preset-react": "^6.11.1",
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "node-sass": "^3.8.0",
+    "sass-loader": "^4.0.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.1"
+  },
+  "dependencies": {
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.6.1",
+    "react-router-redux": "^4.0.5",
+    "redux": "^3.5.2",
+    "phoenix": "file:deps/phoenix",
+    "phoenix_html": "file:deps/phoenix_html"
+  }
+  ```
+    Then, from the command line, type:
+  ```
+  npm install
+  ```
+  * Option B: Install most recent updates through the terminal. In the `new_project` directory:
+  ```
+  $ npm install --save-dev babel-core babel-preset-es2015 babel-preset-react babel-loader extract-text-webpack-plugin node-sass style-loader css-loader sass-loader webpack
+    ...
+    ...
+  $ npm install --save react react-router-redux react-router redux react-redux react-dom
+  ```
+    Then, inside `package.json`, add the following to the end of the `"dependencies"` object:
+  ```
+  "dependencies": {
+    ...
+    "phoenix": "file:deps/phoenix",
+    "phoenix_html": "file:deps/phoenix_html"
+  }
+  ```
+* Organize the Sass file strucutre by using `css-burrito`. If you haven't already installed the [package from npm](), do so from the command line:
 ```
-"devDependencies": {
-  "babel-core": "^6.13.2",
-  "babel-preset-es2015": "^6.13.2",
-  "babel-preset-react": "^6.11.1",
-  "babel-loader": "^6.2.4",
-  "extract-text-webpack-plugin": "^1.0.1",
-  "style-loader": "^0.13.1",
-  "webpack": "^1.13.1"
-},
-"dependencies": {
-  "react": "^15.3.0",
-  "react-dom": "^15.3.0",
-  "react-redux": "^4.4.5",
-  "react-router": "^2.6.1",
-  "react-router-redux": "^4.0.5",
-  "redux": "^3.5.2"
-}
+$ npm install -g css-burrito
 ```
-  Then, from the command line, type:
+Then, from the `web/static` directory of `new_project`, create the `css-burrito` project:
 ```
-npm install
-```
-* Option B: Install most recent updates through the terminal. In the `new_project` directory:
-```
-$ npm install --save-dev babel-core babel-preset-es2015 babel-preset-react babel-loader extract-text-webpack-plugin node-sass style-loader css-loader sass-loader webpack
-  ...
-  ...
-$ npm install --save react react-router-redux react-router redux react-redux react-dom
-```
-  Then, inside `package.json`, add the following to the end of the `"dependencies"` object:
-```
-"dependencies": {
-  ...
-  "phoenix": "file:deps/phoenix",
-  "phoenix_html": "file:deps/phoenix_html"
-}
+$ burrito -n
 ```
 * Create the `webpack.config.js` file in the main directory and configure like this:
 ```
@@ -110,7 +124,7 @@ function web(dest) { return root('web/static/' + dest) }
 var config = module.exports = {
   entry: {
     application: [
-      web('css/application.scss'),
+      web('stylesheets/application.scss'),
       web('js/application.js')
     ],
   },
@@ -172,10 +186,16 @@ config :new_project, NewProject.Endpoint,
 mix deps.get
 mix ecto.create
 ```
-* Create blank `web\static\js\application.js` and `web\static\css\application.scss` files.
+* Create a blank `web/static/js/application.js` file.
 * Move the `private/static/js/phoenix.js` file to the `web/static/js` folder.
-* Open the `web/templates/layout/app.html.eex` and add a link to the `application.css` stylesheet.
+* Move the `web/static/css/app.css` file to the `priv/static/css` and rename it to `phoenix.css`.
+* Open the `web/templates/layout/app.html.eex`. It currently looks like this:
 ```
+<link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+```
+Now we're going to add the new `application.css` output file and update the other static path to point to our renamed default Phoenix css output file. Update to look like this:
+```
+<link rel="stylesheet" href="<%= static_path(@conn, "/css/phoenix.css") %>">
 <link rel="stylesheet" href="<%= static_path(@conn, "/css/application.css") %>">
 ```
 * In the same `web/templates/layout/app.html.eex` file, change the static path pointing to the javascript from `app.js` to `application.js` as seen here:
