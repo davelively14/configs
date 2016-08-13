@@ -25,22 +25,22 @@
 $ mix phoenix.new --no-brunch new_project
 ```
 * Ensure that the `new_project/config/dev.exs` and `new_project/config/test.exs` files are configured for Postgres (remove `username` and `password` data).
-  dev.exs:
-    ```
-    config :new_project, NewProject.Repo,
-      adapter: Ecto.Adapters.Postgres,
-      database: "new_project_dev",
-      hostname: "localhost",
-      pool_size: 10
-    ```
+  - dev.exs:
+```
+config :new_project, NewProject.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  database: "new_project_dev",
+  hostname: "localhost",
+  pool_size: 10
+```
   test.exs:
-    ```
-    config :new_project, NewProject.Repo,
-      adapter: Ecto.Adapters.Postgres,
-      database: "new_project_test",
-      hostname: "localhost",
-      pool: Ecto.Adapters.SQL.Sandbox
-    ```
+```
+config :new_project, NewProject.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  database: "new_project_test",
+  hostname: "localhost",
+  pool: Ecto.Adapters.SQL.Sandbox
+```
 * Initialize the database:
   ```
   $ mix ecto.create
