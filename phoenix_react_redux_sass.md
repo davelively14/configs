@@ -21,9 +21,9 @@
 #### Step by Step
 
 * Create new Phoenix project without Brunch. Do NOT install dependencies.
-  ```
-  $ mix phoenix.new --no-brunch new_project
-  ```
+```
+$ mix phoenix.new --no-brunch new_project
+```
 * Ensure that the `new_project/config/dev.exs` and `new_project/config/test.exs` files are configured for Postgres (remove `username` and `password` data).
   - dev.exs:
     ```
@@ -59,30 +59,30 @@
   ```
 * Install dependencies
   **Option A:** Open `package.json` and add the base dependencies. Doing it this way is easier, but some of the dependencies may not be up to date. This will work with the configuration.
-  ```
-  "devDependencies": {
-    "babel-core": "^6.13.2",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.13.2",
-    "babel-preset-react": "^6.11.1",
-    "css-loader": "^0.23.1",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "node-sass": "^3.8.0",
-    "sass-loader": "^4.0.0",
-    "style-loader": "^0.13.1",
-    "webpack": "^1.13.1"
-  },
-  "dependencies": {
-    "react": "^15.3.0",
-    "react-dom": "^15.3.0",
-    "react-redux": "^4.4.5",
-    "react-router": "^2.6.1",
-    "react-router-redux": "^4.0.5",
-    "redux": "^3.5.2",
-    "phoenix": "file:deps/phoenix",
-    "phoenix_html": "file:deps/phoenix_html"
-  }
-  ```
+    ```
+    "devDependencies": {
+      "babel-core": "^6.13.2",
+      "babel-loader": "^6.2.4",
+      "babel-preset-es2015": "^6.13.2",
+      "babel-preset-react": "^6.11.1",
+      "css-loader": "^0.23.1",
+      "extract-text-webpack-plugin": "^1.0.1",
+      "node-sass": "^3.8.0",
+      "sass-loader": "^4.0.0",
+      "style-loader": "^0.13.1",
+      "webpack": "^1.13.1"
+    },
+    "dependencies": {
+      "react": "^15.3.0",
+      "react-dom": "^15.3.0",
+      "react-redux": "^4.4.5",
+      "react-router": "^2.6.1",
+      "react-router-redux": "^4.0.5",
+      "redux": "^3.5.2",
+      "phoenix": "file:deps/phoenix",
+      "phoenix_html": "file:deps/phoenix_html"
+    }
+    ```
   Then, from the command line, type:
     ```
     npm install
