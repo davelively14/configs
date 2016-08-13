@@ -84,147 +84,147 @@ $ npm init
 }
 ```
   Then, from the command line, type:
-  ```
-  npm install
-  ```
+```
+$ npm install
+```
   **Option B:** Install most recent updates through the terminal. In the `new_project` directory:
-    ```
-    $ npm install --save-dev babel-core babel-preset-es2015 babel-preset-react babel-loader extract-text-webpack-plugin node-sass style-loader css-loader sass-loader webpack
-      ...
-      ...
-    $ npm install --save react react-router-redux react-router redux react-redux react-dom
-    ```
+```
+$ npm install --save-dev babel-core babel-preset-es2015 babel-preset-react babel-loader extract-text-webpack-plugin node-sass style-loader css-loader sass-loader webpack
+  ...
+  ...
+$ npm install --save react react-router-redux react-router redux react-redux react-dom
+```
   Then, inside `package.json`, add the following to the end of the `"dependencies"` object:
-    ```
-    "dependencies": {
-      ...
-      "phoenix": "file:deps/phoenix",
-      "phoenix_html": "file:deps/phoenix_html"
-    }
-    ```
+```
+"dependencies": {
+  ...
+  "phoenix": "file:deps/phoenix",
+  "phoenix_html": "file:deps/phoenix_html"
+}
+```
 * Organize the Sass file strucutre by using `css-burrito`. If you haven't already installed the [package from npm](), do so from the command line:
-  ```
-  $ npm install -g css-burrito
-  ```
+```
+$ npm install -g css-burrito
+```
 Then, from the `web/static` directory of `new_project`, create the `css-burrito` project:
-  ```
-  $ burrito -n
-  ```
+```
+$ burrito -n
+```
 * Create the `webpack.config.js` file in the main directory and configure like this:
-  ```
-  'use strict'
+```
+'use strict'
 
-  var path = require('path')
-  var ExtractTextPlugin = require('extract-text-webpack-plugin')
-  var webpack = require('webpack')
+var path = require('path')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var webpack = require('webpack')
 
-  function root(dest) { return path.resolve(__dirname, dest) }
-  function web(dest) { return root('web/static/' + dest) }
+function root(dest) { return path.resolve(__dirname, dest) }
+function web(dest) { return root('web/static/' + dest) }
 
-  var config = module.exports = {
-    entry: {
-      application: [
-        web('stylesheets/application.scss'),
-        web('js/application.js')
-      ],
-    },
+var config = module.exports = {
+  entry: {
+    application: [
+      web('stylesheets/application.scss'),
+      web('js/application.js')
+    ],
+  },
 
-    output: {
-      path: root('priv/static/'),
-      filename: 'js/application.js'
-    },
+  output: {
+    path: root('priv/static/'),
+    filename: 'js/application.js'
+  },
 
-    resolve: {
-      extension: ['', '.js', '.scss'],
-      modulesDirectories: ['node_modules']
-    },
+  resolve: {
+    extension: ['', '.js', '.scss'],
+    modulesDirectories: ['node_modules']
+  },
 
-    module: {
-      noParse: /vendor\/phoenix/,
-      loaders: [
-        {
-          test: /\.js$/,
-          exclude: /node_modules/,
-          loader: 'babel',
-          query: {
-            cacheDirectory: true,
-            presets: ['react', 'es2015']
-          }
-        },
-        {
-          test: /\.scss$/,
-          loader: ExtractTextPlugin.extract('style', 'css!sass?includePaths[]=' + __dirname +  '/node_modules')
+  module: {
+    noParse: /vendor\/phoenix/,
+    loaders: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+        query: {
+          cacheDirectory: true,
+          presets: ['react', 'es2015']
         }
-      ]
-    },
-
-    plugins: [
-      new ExtractTextPlugin('css/application.css')
+      },
+      {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract('style', 'css!sass?includePaths[]=' + __dirname +  '/node_modules')
+      }
     ]
-  }
+  },
 
-  if (process.env.NODE_ENV === 'production') {
-    config.plugins.push(
-      new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin({ minimize: true })
-    )
-  }
-  ```
+  plugins: [
+    new ExtractTextPlugin('css/application.css')
+  ]
+}
+
+if (process.env.NODE_ENV === 'production') {
+  config.plugins.push(
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin({ minimize: true })
+  )
+}
+```
 * Configure Phoenix to to start Webpack every time the dev server is started. Webpack will watch for changes and generate asset functions on the fly. Within `config/dev.exs`, replace the empty `array` value in the `watcher` key in the first config:
-  ```
-  config :new_project, NewProject.Endpoint,
-    http: [port: 4000],
-    debug_errors: true,
-    code_reloader: true,
-    check_origin: false,
-    watchers: [
-      node: ["node_modules/webpack/bin/webpack.js", "--watch", "--color", cd: Path.expand("../", __DIR__)]
-    ]
-  ```
+```
+config :new_project, NewProject.Endpoint,
+  http: [port: 4000],
+  debug_errors: true,
+  code_reloader: true,
+  check_origin: false,
+  watchers: [
+    node: ["node_modules/webpack/bin/webpack.js", "--watch", "--color", cd: Path.expand("../", __DIR__)]
+  ]
+```
 * Get the Phoenix dependencies and initialize the database
-  ```
-  mix deps.get
-  mix ecto.create
-  ```
+```
+mix deps.get
+mix ecto.create
+```
 * Create a blank `web/static/js/application.js` file.
 * Move the `private/static/js/phoenix.js` file to the `web/static/js` folder.
 * Open `web/templates/layout/app.html.eex`. In order to reference our new stylesheets, and the following to the `head` of the file:
-  ```
-  <head>
-    ...
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/application.css") %>">
-  </head>
-  ```
+```
+<head>
+  ...
+  <link rel="stylesheet" href="<%= static_path(@conn, "/css/application.css") %>">
+</head>
+```
 * Keep the old with the new?
   **Option A: Keep it.** In order to maintain the custom Phoenix styles and out of the box Bootstrap functionality, move the `web/static/css/app.css` file to the `priv/static/css` and rename it to `phoenix.css`. Delete the `web/static/css` directory. Open `web/templates/layout/app.html.eex` and change the `stylesheet` link from:
-    ```
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
-    ```
+```
+<link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+```
   to:
-    ```
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/phoenix.css") %>">
-    ```
+```
+<link rel="stylesheet" href="<%= static_path(@conn, "/css/phoenix.css") %>">
+```
   **Option B: Get rid of it.** Simply delete the `web/static/css` directory. Open `web/templates/layout/app.html.eex` and remove the following line:
-    ```
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
-    ```
+```
+<link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+```
 * In `web/templates/layout/app.html.eex` file, change the static path pointing to the javascript from `app.js` to `application.js` as seen here:
-  ```
-  <script src="<%= static_path(@conn, "/js/application.js") %>"></script>
-  ```
+```
+<script src="<%= static_path(@conn, "/js/application.js") %>"></script>
+```
 * Run the server and everything should be up and running:
-  ```
-  $ mix phoenix.server
-  ...
-  [info] Running NewProject.Endpoint with Cowboy using http://localhost:4000
-  Hash: 01d3f6e25f54222b539d
-  Version: webpack 1.13.1
-  Time: 634ms
-                Asset      Size  Chunks             Chunk Names
-    js/application.js   1.67 kB       0  [emitted]  application
-  css/application.css  31 bytes       0  [emitted]  application
-     [0] multi application 40 bytes {0} [built]
-      + 5 hidden modules
-  Child extract-text-webpack-plugin:
-          + 2 hidden modules
-  ```
+```
+$ mix phoenix.server
+...
+[info] Running NewProject.Endpoint with Cowboy using http://localhost:4000
+Hash: 01d3f6e25f54222b539d
+Version: webpack 1.13.1
+Time: 634ms
+              Asset      Size  Chunks             Chunk Names
+  js/application.js   1.67 kB       0  [emitted]  application
+css/application.css  31 bytes       0  [emitted]  application
+   [0] multi application 40 bytes {0} [built]
+    + 5 hidden modules
+Child extract-text-webpack-plugin:
+        + 2 hidden modules
+```
