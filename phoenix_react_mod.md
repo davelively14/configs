@@ -27,8 +27,129 @@ $ npm init
 name: (my_app)
 version: (1.0.0)
 entry point: (brunch-config.js) index.js
+...
 ```
 
 * Remove the `brunch-config.js` file from the main directory.
 
-* 
+* Open the `package.json` file in the main directory and remove all dependencies except for `phoenix` and `phoenix_html`. It should look like this:
+```
+...
+"dependencies": {
+  "phoenix": "file:deps/phoenix",
+  "phoenix_html": "file:deps/phoenix_html"
+},
+...
+```
+
+* From the command line in the main directory, install the required NPM packages:
+```
+$ npm install --save-dev babel-core babel-preset-es2015 babel-preset-react babel-loader extract-text-webpack-plugin node-sass style-loader css-loader sass-loader webpack
+...
+...
+$ npm install --save react react-router-redux react-router redux react-redux react-dom
+```
+
+* Check the `dependencies` and `devDependencies` sections of the `package.json` file in the main directory. It should resemble this (potentially with newer versions):
+```
+"dependencies": {
+  "phoenix": "file:deps/phoenix",
+  "phoenix_html": "file:deps/phoenix_html",
+  "react": "^15.3.1",
+  "react-dom": "^15.3.1",
+  "react-redux": "^4.4.5",
+  "react-router": "^2.8.1",
+  "react-router-redux": "^4.0.5",
+  "redux": "^3.6.0"
+},
+...
+"devDependencies": {
+  "babel-core": "^6.14.0",
+  "babel-loader": "^6.2.5",
+  "babel-preset-es2015": "^6.14.0",
+  "babel-preset-react": "^6.11.1",
+  "css-loader": "^0.25.0",
+  "extract-text-webpack-plugin": "^1.0.1",
+  "node-sass": "^3.10.0",
+  "sass-loader": "^4.0.2",
+  "style-loader": "^0.13.1",
+  "webpack": "^1.13.2"
+},
+```
+
+* Create the `webpack.config.js` file in the main directory to look like this:
+```
+'use strict'
+
+var path = require('path')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var webpack = require('webpack')
+
+function root(dest) { return path.resolve(__dirname, dest) }
+function web(dest) { return root('web/static/' + dest) }
+
+var config = module.exports = {
+  entry: {
+    application: [
+      web('stylesheets/application.scss'),
+      web('js/application.js')
+    ],
+  },
+
+  output: {
+    path: root('priv/static/'),
+    filename: 'js/application.js'
+  },
+
+  resolve: {
+    extension: ['', '.js', '.scss'],
+    modulesDirectories: ['node_modules']
+  },
+
+  module: {
+    noParse: /vendor\/phoenix/,
+    loaders: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+        query: {
+          cacheDirectory: true,
+          presets: ['react', 'es2015']
+        }
+      },
+      {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract('style', 'css!sass?includePaths[]=' + __dirname +  '/node_modules')
+      }
+    ]
+  },
+
+  plugins: [
+    new ExtractTextPlugin('css/application.css')
+  ]
+}
+
+if (process.env.NODE_ENV === 'production') {
+  config.plugins.push(
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin({ minimize: true })
+  )
+}
+```
+
+* Configure Phoenix to to start Webpack every time the dev server is started. Webpack will watch for changes and generate asset functions on the fly. Within `config/dev.exs`, remove the `brunch` configuration inside the `watcher` array and add the `webpack` config. It should look like the following:
+```
+config :my_app, MyApp.Endpoint,
+  http: [port: 4000],
+  debug_errors: true,
+  code_reloader: true,
+  check_origin: false,
+  watchers: [
+    node: ["node_modules/webpack/bin/webpack.js", "--watch", "--color", cd: Path.expand("../", __DIR__)]
+  ]
+```
+
+STOPPED HERE. Where do I find the phoenix.js file and where does it go? Is that file only available if I don't include brunch from the beginning? Check contents of phoenix.js in resurgens app and find it in locorum.
+
+* Rename the `web/static/css` directory to `web/static/stylesheets`.
