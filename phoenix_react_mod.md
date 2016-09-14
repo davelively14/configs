@@ -20,8 +20,15 @@
 
 #### Step by Step
 
-* From the command line, create the new package typing:
+* From the command line, amend the default `package.json` by using the `npm init` command. Change the entry point from the default `(brunch-config.js)` to `index.js`. Otherwise, use the defaults or change according to your preference.
 ```
 $ npm init
+...
+name: (my_app)
+version: (1.0.0)
+entry point: (brunch-config.js) index.js
 ```
-  - Keep the defaults for most options.
+
+* Remove the `brunch-config.js` file from the main directory.
+
+* 
