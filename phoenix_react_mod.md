@@ -1,6 +1,6 @@
 # Tutorial
 
-## How to modify an existing Phoenix act to use React and Redux
+## How to modify an existing Phoenix app to use React and Redux
 
 #### The Stack
 
@@ -12,6 +12,7 @@
 #### Front End Packaging
 
   * Webpack
+  * Saas
   * Bootstrap (from Phoenix)
   * React
   * React Router
