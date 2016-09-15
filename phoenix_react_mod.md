@@ -92,13 +92,13 @@ var config = module.exports = {
   entry: {
     application: [
       web('stylesheets/application.scss'),
-      web('js/application.js')
+      web('js/app.js')
     ],
   },
 
   output: {
     path: root('priv/static/'),
-    filename: 'js/application.js'
+    filename: 'js/app.js'
   },
 
   resolve: {
@@ -146,10 +146,35 @@ config :my_app, MyApp.Endpoint,
   code_reloader: true,
   check_origin: false,
   watchers: [
-    node: ["node_modules/webpack/bin/webpack.js", "--watch", "--color", cd: Path.expand("../", __DIR__)]
+    node: ["node_modules/webpack/bin/webpack.js", "--watch", "--color"]
   ]
 ```
 
-STOPPED HERE. Where do I find the phoenix.js file and where does it go? Is that file only available if I don't include brunch from the beginning? Check contents of phoenix.js in resurgens app and find it in locorum.
+* Rename the `web/static/css` directory to `web/static/stylesheets`. Within that directory, create a file named `application.scss`. It can remain blank for now.
 
-* Rename the `web/static/css` directory to `web/static/stylesheets`.
+* In the same `web/static/stylesheets` directory, rename the `app.css` file to `bootstrap.css` and move that file to the `priv/static/css` directory.
+
+* Open `web/templates/layout/app.html.eex`. In order to reference our new stylesheets, delete the link to `app.css` and add the snippet of code below to the `head` of the file. The link to `application.css` is the Saas output file. If you wish to keep Bootstrap, add the link to to `bootstrap.css` as well.
+```
+<head>
+  ...
+  <link rel="stylesheet" href="<%= static_path(@conn, "/css/application.css") %>">
+  <link rel="stylesheet" href="<%= static_path(@conn, "/css/bootstrap.css") %>">
+</head>
+```
+
+* Run the server, and everything should be up and running:
+```
+$ mix phoenix.server
+[info] Running MyApp.Endpoint with Cowboy using http on port 4000
+Hash: 110d2532c598add5eaf3
+Version: webpack 1.13.2
+Time: 1024ms
+              Asset     Size  Chunks             Chunk Names
+          js/app.js  51.7 kB       0  [emitted]  application
+css/application.css  0 bytes       0  [emitted]  application
+   [0] multi application 40 bytes {0} [built]
+    + 9 hidden modules
+Child extract-text-webpack-plugin:
+        + 2 hidden modules
+```
