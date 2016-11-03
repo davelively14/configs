@@ -178,7 +178,7 @@ config :new_project, NewProject.Endpoint,
   code_reloader: true,
   check_origin: false,
   watchers: [
-    node: ["node_modules/webpack/bin/webpack.js", "--watch", "--color", cd: Path.expand("../", __DIR__)]
+    node: ["node_modules/webpack/bin/webpack.js", "--watch-stdin", "--color", cd: Path.expand("../", __DIR__)]
   ]
 ```
 * Get the Phoenix dependencies and initialize the database
