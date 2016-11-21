@@ -51,6 +51,8 @@ $ npm install --save-dev babel-core babel-preset-es2015 babel-preset-react babel
 $ npm install --save react react-router-redux react-router redux react-redux react-dom
 ```
 
+* Add `/node_modules` to your `.gitignore` file.
+
 * Check the `dependencies` and `devDependencies` sections of the `package.json` file in the main directory. It should resemble this (potentially with newer versions):
 ```
 "dependencies": {

@@ -98,6 +98,9 @@ $ npm install --save react react-router-redux react-router redux react-redux rea
   "phoenix_html": "file:deps/phoenix_html"
 }
 ```
+
+* Add `/node_modules` to your `.gitignore` file.
+
 * Organize the Sass file strucutre by using `css-burrito`. If you haven't already installed the [package from npm](), do so from the command line:
 ```
 $ npm install -g css-burrito

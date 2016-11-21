@@ -89,6 +89,8 @@ $ npm install --save react react-router-redux react-router redux react-redux rea
   "phoenix_html": "file:deps/phoenix_html"
 }
 ```
+* Add `/node_modules` to your `.gitignore` file.
+
 * Create the `webpack.config.js` file in the main directory and configure like this:
 ```
 'use strict'
