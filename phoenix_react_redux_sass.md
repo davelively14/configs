@@ -41,10 +41,6 @@ config :new_project, NewProject.Repo,
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 ```
-* Initialize the database:
-```
-$ mix ecto.create
-```
 * Navigate to the newly created directory.  Setup the git. Create the repo, `new_project` in this example, on the git account.
 ```
 $ git init
