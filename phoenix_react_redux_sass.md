@@ -185,7 +185,24 @@ config :new_project, NewProject.Endpoint,
 mix deps.get
 mix ecto.create
 ```
-* Create a blank `web/static/js/application.js` file.
+* Create `web/static/js/application.js` file and insert the following code:
+```
+'use strict';
+
+var elements = document.querySelectorAll('[data-submit^=parent]');
+var len = elements.length;
+
+for (var i = 0; i < len; ++i) {
+  elements[i].addEventListener('click', function (event) {
+    var message = this.getAttribute("data-confirm");
+    if (message === null || confirm(message)) {
+      this.parentNode.submit();
+    };
+    event.preventDefault();
+    return false;
+  }, false);
+};
+```
 * Move the `private/static/js/phoenix.js` file to the `web/static/js` folder.
 * Open `web/templates/layout/app.html.eex`. In order to reference our new stylesheets, and the following to the `head` of the file:
 ```
