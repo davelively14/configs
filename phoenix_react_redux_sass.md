@@ -270,3 +270,8 @@ On occasion, I've received the "App Not Started" page from Heroku when trying to
 $ heroku ps:scale web=0
 $ heroku ps:scale web=1
 ```
+
+Or, you can simply use the restart command:
+```
+$ heroku restart
+```
