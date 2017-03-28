@@ -21,7 +21,7 @@
 
 * Create new Phoenix project without Brunch. Do NOT install dependencies.
 ```
-$ mix phoenix.new --no-brunch new_project
+$ mix phx.new --no-brunch new_project
 ```
 * Ensure that the `new_project/config/dev.exs` and `new_project/config/test.exs` files are configured for Postgres (remove `username` and `password` data).
 ```elixir
