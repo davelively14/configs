@@ -52,11 +52,11 @@ $ git commit -m "Initial commit"
 $ git remote add origin https://github.com/davelively14/new_project.git
 $ git push -u origin master
 ```
-* In the newly created directory `new_project`, create a new `package.json` file and select the defaults:
+* From the root directory, create a new directory named `assets`. Within the `assets` directory, use the following command to setup a `package.json` file. Ensure that you change the default name from `assets` to the name of your app. Otherwise, you can just select defaults.
 ```
 $ npm init
 ```
-* Option A: Open `package.json` and add the base dependencies.
+* Option A: Open `assets/package.json` and add the base dependencies.
 ```json
 "devDependencies": {
   "babel-core": "^6.24.0",
@@ -78,7 +78,7 @@ $ npm init
 ```
 $ npm install
 ```
-* Option B: Install most recent updates through the terminal. In the `new_project` directory:
+* Option B: Install most recent updates through the terminal. In the `assets` directory:
 ```
 $ npm install --save-dev babel-core babel-preset-es2015 babel-preset-react babel-loader webpack
   ...
@@ -86,7 +86,7 @@ $ npm install --save-dev babel-core babel-preset-es2015 babel-preset-react babel
 $ npm install --save react react-router-redux react-router redux react-redux react-dom
 ```
 
-* For either option, open `package.json`, add the following to the end of the `"dependencies"` object:
+* For either option, open `assets/package.json`, add the following to the end of the `"dependencies"` object:
 ```json
 "dependencies": {
   ...
@@ -94,16 +94,16 @@ $ npm install --save react react-router-redux react-router redux react-redux rea
   "phoenix_html": "file:deps/phoenix_html"
 }
 ```
-* Add `/node_modules` to your `.gitignore` file.
+* Add `assets/node_modules` to your `.gitignore` file.
 
-* Create the `webpack.config.js` file in the main directory and configure like this (note: this is for Webpack 2 - it won't work if you're using an older version of Webpack). Also, replace [ADD APP NAME] with your own app.
+* Create the `webpack.config.js` file in the `/assets` directory and configure like this (note: this is for Webpack 2 - it won't work if you're using an older version of Webpack). **Also, replace [ADD APP NAME] with your own app.**
 ```javascript
 'use strict'
 
 var path = require('path')
 var webpack = require('webpack')
 
-function root(dest) { return path.resolve(__dirname, dest) }
+function root(dest) { return path.resolve(__dirname, "../", dest) }
 function web(dest) { return root('lib/[ADD APP NAME]/web/static/' + dest) }
 
 var config = module.exports = {
@@ -132,7 +132,7 @@ var config = module.exports = {
         loader: 'babel-loader',
         query: {
           cacheDirectory: true,
-          presets: ['react', 'es2015']
+          presets: [require.resolve('babel-preset-react'), require.resolve('babel-preset-es2015')]
         }
       }
     ]
@@ -156,7 +156,7 @@ config :new_project, NewProject.Endpoint,
   code_reloader: true,
   check_origin: false,
   watchers: [
-    node: ["node_modules/webpack/bin/webpack.js", "--watch-stdin", "--color", cd: Path.expand("../", __DIR__)]
+    node: ["node_modules/webpack/bin/webpack.js", "--watch-stdin", "--color", cd: Path.expand("../assets", __DIR__)]
   ]
 ```
 * Get the Phoenix dependencies and initialize the database
@@ -164,7 +164,7 @@ config :new_project, NewProject.Endpoint,
 mix deps.get
 mix ecto.create
 ```
-* Create a `lib/[APP NAME]/web/static/js/application.js` file and add the following code:
+* Create a `lib/[APP NAME]/web/static/js/application.js` file. To add `phoenix_html` support, add the following code to the `application.js` file:
 ```javascript
 'use strict';
 
