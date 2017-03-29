@@ -164,7 +164,7 @@ config :new_project, NewProject.Endpoint,
 mix deps.get
 mix ecto.create
 ```
-* Create a `lib/web/static/js/application.js` file and add the following code:
+* Create a `lib/[APP NAME]/web/static/js/application.js` file and add the following code:
 ```javascript
 'use strict';
 
