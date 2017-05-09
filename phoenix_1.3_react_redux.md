@@ -120,7 +120,7 @@ var config = module.exports = {
 
   resolve: {
     extensions: ['.js'],
-    modules: ['node_modules']
+    modules: ['assets/node_modules']
   },
 
   module: {
