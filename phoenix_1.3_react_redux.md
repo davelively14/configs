@@ -56,7 +56,7 @@ $ git push -u origin master
 ```
 $ npm init
 ```
-* Option A: Open `assets/package.json` and add the base dependencies.
+Open `assets/package.json` and add the base dependencies. Note that we need to use version `^3.0.2` for `react-router` in order to work with `react-router-redux` version `^4.0.8`. If you use the most recent version of `react-router`, it will raise `TypeError: Cannot read property 'listen' of undefined`.
 ```json
 "devDependencies": {
   "babel-core": "^6.24.0",
@@ -69,7 +69,7 @@ $ npm init
   "react": "^15.4.2",
   "react-dom": "^15.4.2",
   "react-redux": "^5.0.3",
-  "react-router": "^4.0.0",
+  "react-router": "^3.0.2",
   "react-router-redux": "^4.0.8",
   "redux": "^3.6.0"
 }
@@ -78,20 +78,20 @@ $ npm init
 ```
 $ npm install
 ```
-* Option B: Install most recent updates through the terminal. In the `assets` directory:
+<!-- * Option B: Install most recent updates through the terminal. In the `assets` directory:
 ```
 $ npm install --save-dev babel-core babel-preset-es2015 babel-preset-react babel-loader webpack
   ...
   ...
 $ npm install --save react react-router-redux react-router redux react-redux react-dom
-```
+``` -->
 
 * For either option, open `assets/package.json`, add the following to the end of the `"dependencies"` object:
 ```json
 "dependencies": {
   ...
-  "phoenix": "file:deps/phoenix",
-  "phoenix_html": "file:deps/phoenix_html"
+  "phoenix": "file:../deps/phoenix",
+  "phoenix_html": "file:../deps/phoenix_html"
 }
 ```
 * Add `assets/node_modules` to your `.gitignore` file.
