@@ -221,3 +221,45 @@ Or, you can simply use the restart command:
 ```
 $ heroku restart
 ```
+
+## ESLint settings
+
+```javascript
+module.exports = {
+    "env": {
+        "node": true,
+        "es6": true,
+        "browser": true
+    },
+    "extends": [
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaFeatures": {
+          "jsx": true
+        }
+    },
+    "rules": {
+        "indent": [
+            "error",
+            2,
+            {"SwitchCase": 1}
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-console":0,
+        "no-unused-vars": ["error", {"argsIgnorePattern": "^_"}]
+    }
+};
+```
