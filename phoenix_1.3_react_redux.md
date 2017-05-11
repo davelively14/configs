@@ -71,7 +71,8 @@ Open `assets/package.json` and add the base dependencies. Note that we need to u
   "react-redux": "^5.0.3",
   "react-router": "^3.0.2",
   "react-router-redux": "^4.0.8",
-  "redux": "^3.6.0"
+  "redux": "^3.6.0",
+  "redux-form": "^6.7.0"
 }
 ```
   Then, from the command line, type:
