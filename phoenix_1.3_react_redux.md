@@ -203,13 +203,13 @@ always_rebuild=true
 
 * Add `Procfile` (note the capital 'P') to the root directory with the following contents:
 ```
-web: MIX_ENV=prod mix phoenix.server
+web: MIX_ENV=prod mix phx.server
 ```
 
 * Add `compile` (note no extension) to the root directory with the following contents:
 ```
 ./node_modules/.bin/webpack -p
-mix phoenix.digest
+(cd .. && mix phx.digest)
 ```
 
 On occasion, I've received the "App Not Started" page from Heroku when trying to load the page. In order to get past, I've had to restrt the dynos. At the command line from the root directory, enter these commands:
