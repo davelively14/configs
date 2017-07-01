@@ -212,6 +212,12 @@ web: MIX_ENV=prod mix phx.server
 (cd .. && mix phx.digest)
 ```
 
+To run commands, include pool size. For example:
+```
+$ heroku run "POOL_SIZE=2 iex -S mix"
+$ heroku run "POOL_SIZE=2 mix ecto.migrate"
+```
+
 On occasion, I've received the "App Not Started" page from Heroku when trying to load the page. In order to get past, I've had to restrt the dynos. At the command line from the root directory, enter these commands:
 ```
 $ heroku ps:scale web=0
