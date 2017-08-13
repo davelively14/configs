@@ -1,6 +1,6 @@
 # Tutorial
 
-## How to setup Phoenix 1.3+ with React / Redux and Webpack 2
+## How to setup Phoenix 1.3.0-rc with React / Redux and Webpack 2
 
 #### The Stack
 
