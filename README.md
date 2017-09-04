@@ -6,7 +6,7 @@ Step by step instructions for various stack configurations
 
 #### Using webpack
 
-- **NEW** [Phoenix 1.3.0 with React and Redux, via Webpack w/ Jest configured]((https://github.com/davelively14/configs/blob/master/phoenix_1.3.0_react_redux.md))
+- **NEW** [Phoenix 1.3.0 with React and Redux, via Webpack w/ Jest configured]((https://github.com/davelively14/configs/blob/master/phoenix_1.3.0_react_redux_jest.md))
 - [Phoenix 1.3.0 with React and Redux, via Webpack 2](https://github.com/davelively14/configs/blob/master/phoenix_1.3.0_react_redux.md)
 - [Phoenix 1.3.0-rc.0 with React and Redux, via Webpack 2](https://github.com/davelively14/configs/blob/master/phoenix_1.3.0-rc.0_react_redux.md)
 - [Phoenix with React and Redux](/phoenix_react_redux.md)
